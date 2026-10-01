@@ -1,0 +1,104 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Insert title here</title>
+    <link rel="stylesheet" type="text/css" href="css/basic.css" />
+    <style type="text/css">
+      .poster {
+        width: 150px;
+        height: 150px;
+      }
+
+      a {
+        text-decoration: none;
+      }
+    </style>
+  </head>
+  <body>
+    <button name="delItem">삭제</button>
+    <hr />
+    <article class="main">
+      <section>
+        <table width="80%" align="center">
+          <caption class="caption">
+            찜 리스트
+          </caption>
+          <thead>
+            <tr>
+              <th>이미지</th>
+              <th>상품번호</th>
+              <th>상품이름</th>
+              <th>가격</th>
+              <th>삭제</th>
+            </tr>
+          </thead>
+          <tbody id="content">
+            <!-- 찜목록 출력 -->
+          </tbody>
+        </table>
+      </section>
+      <section class="toalprice" id="price">
+        <!-- 가격 -->
+      </section>
+      <section class="link">
+        <table align="center">
+          <tr>
+            <td align="center">
+              <a href="">주문하러 가기</a>
+              <a href="index.html">DVD LIST</a>
+            </td>
+          </tr>
+        </table>
+      </section>
+    </article>
+
+    <script type="text/javascript">
+      const table = document.querySelector("#content");
+      const totalPrice = document.querySelector("#price");
+      let index = 0;
+      const getInfo = function () {
+        table.innerHTML = "";
+        let len = localStorage.length;
+        let sum = 0;
+        for (let i = 0; i < len; i++) {
+          let key = localStorage.key(i);
+          let value = localStorage.getItem(key);
+          let [name, src, price] = value.split(",");
+          // let comIdx = value.indexOf(",");
+          // let name = value.substring(0, comIdx);
+
+          // value = value.substring(comIdx + 1);
+          // comIdx = value.indexOf(",");
+
+          // let src = value.substring(0, comIdx);
+          // console.log(src);
+          // let price = value.substring(comIdx + 1);
+          sum += parseInt(price);
+
+          const newRow = table.insertRow();
+          const newSrc = newRow.insertCell(0);
+          const newNum = newRow.insertCell(1);
+          const newName = newRow.insertCell(2);
+          const newPrice = newRow.insertCell(3);
+          const newDelete = newRow.insertCell(4);
+
+          newSrc.innerHTML = `<img src="${src}" class="poster" />`;
+          newNum.innerText = key;
+          newName.innerText = name;
+          newPrice.innerText = price.toLocaleString();
+          newDelete.innerHTML = `<input type="button" value="삭제" name="delete" />`;
+          newDelete
+            .querySelector(`[name=delete]`)
+            .addEventListener("click", () => {
+              localStorage.removeItem(key);
+              sum -= price;
+              getInfo();
+            });
+        }
+        totalPrice.innerHTML = `주문가격 : ${sum.toLocaleString()}원`;
+      };
+      getInfo();
+    </script>
+  </body>
+</html>
