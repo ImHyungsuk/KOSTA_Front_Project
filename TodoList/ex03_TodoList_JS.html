@@ -77,6 +77,9 @@
         //initData(mokData) 함수 호출
         initData(mockData);
         // 현재 날짜를 년 월 일 요일로 출력한다.
+        const date = new Date();
+        document.querySelector(".Header > h1").innerText =
+          `${date.getFullYear()}년 ${date.getMonth() + 1}월 ${date.getDate()}일 ${day[date.getDay()]}요일`;
       };
       const todo_wrap = document.querySelector(".todos_wrapper");
       const initData = (printData) => {
