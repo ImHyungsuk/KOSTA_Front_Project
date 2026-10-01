@@ -101,6 +101,20 @@
             name속성 추가해서 value에 todo의 id 설정
             onclick =”todoDel(this)” 추가*/
       };
+      let idIndex = 3;
+      document
+        .querySelector(".Editor > button")
+        .addEventListener("click", function () {
+          event.preventDefault();
+          const newData = {
+            id: idIndex,
+            isDone: false,
+            content: document.querySelector(".Editor>input").value,
+            date: new Date().getTime(),
+          };
+          mockData.push(newData);
+          initData(mockData);
+        });
       const onUpdate = (id) => {};
       const todoDel = () => {};
     </script>
