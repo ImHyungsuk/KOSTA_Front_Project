@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/App.css" />
+    <link rel="stylesheet" href="./css/Header.css" />
+    <link rel="stylesheet" href="./css/Editor.css" />
+    <link rel="stylesheet" href="./css/List.css" />
+    <link rel="stylesheet" href="./css/TodoItem.css" />
+  </head>
+  <body>
+    <div class="App">
+      <div class="Header">
+        <h3>오늘의 Plan😊</h3>
+        <br />
+        <h1>2025-3-20</h1>
+      </div>
+      <form action="">
+        <div class="Editor">
+          <input type="text" placeholder="새로운 todo" />
+          <button class="add">추가</button>
+        </div>
+      </form>
+      <div class="List">
+        <h4>Todo List🌱</h4>
+        <input type="text" placeholder="검색어를 입력해주세요" />
+        <div class="todos_wrapper">
+          <div class="TodoItem">
+            <input type="checkbox" />
+            <div class="content">친구랑 점심먹기</div>
+            <div class="date">2025-03-20</div>
+            <button class="button" onclick="">삭제</button>
+          </div>
+          <div class="TodoItem">
+            <input type="checkbox" />
+            <div class="content">저녁에 숙제하기</div>
+            <div class="date">2025-03-20</div>
+            <button class="button" onclick="">삭제</button>
+          </div>
+          <div class="TodoItem">
+            <input type="checkbox" />
+            <div class="content">잠자기 전에 일기쓰기</div>
+            <div class="date">2025-03-21</div>
+            <button class="button" onclick="">삭제</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      //초기 데이터
+      let mockData = [
+        {
+          id: 0,
+          isDone: false,
+          content: "React study",
+          date: new Date().getTime(),
+        },
+        {
+          id: 1,
+          isDone: true,
+          content: "친구만나기",
+          date: new Date().getTime(),
+        },
+        {
+          id: 2,
+          isDone: false,
+          content: "낮잠자기",
+          date: new Date().getTime(),
+        },
+      ];
+      // 요일 출력을 위한 배열
+      let day = ["일", "월", "화", "수", "목", "금", "토"];
+
+      onload = () => {
+        //initData(mokData) 함수 호출
+        initData(mockData);
+        // 현재 날짜를 년 월 일 요일로 출력한다.
+      };
+      const todo_wrap = document.querySelector(".todos_wrapper");
+      const initData = (printData) => {
+        todo_wrap.innerHTML = "";
+        // mockData 배열을 forEach를 이용해서 화면에 출력한다.
+        let itemList = "";
+        printData.forEach((element) => {
+          itemList += `
+          <div class="TodoItem">
+            <input type="checkbox" onChange="onUpdate(${element.id})"" value=${element.isDone}/>
+            <div class="content">${element.content}</div>
+            <div class="date">${new Date(element.date).toLocaleString()}</div>
+            <button class="button" onclick="todoDel(this)">삭제</button>
+          </div>
+          `;
+        });
+        todo_wrap.innerHTML = itemList;
+        /* checkbox
+            onchange=”onUpdate(id값)”
+            todo의 isDone이 true이면 checked속성 추가
+          button
+            name속성 추가해서 value에 todo의 id 설정
+            onclick =”todoDel(this)” 추가*/
+      };
+      const onUpdate = (id) => {};
+      const todoDel = () => {};
+    </script>
+  </body>
+</html>
