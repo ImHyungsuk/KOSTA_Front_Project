@@ -13,14 +13,14 @@
   flex: 1;
 }
 .TodoItem > .date {
-  font: 14px;
+  font-size: 14px;
   color: gray;
 }
 
 .TodoItem > .button {
   cursor: pointer;
   color: gray;
-  font: 14px;
+  font-size: 14px;
   border: none;
   border-radius: 5px;
   padding: 5px;
