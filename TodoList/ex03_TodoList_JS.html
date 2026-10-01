@@ -80,13 +80,14 @@
       };
       const todo_wrap = document.querySelector(".todos_wrapper");
       const initData = (printData) => {
+        console.log("initData()호출");
         todo_wrap.innerHTML = "";
         // mockData 배열을 forEach를 이용해서 화면에 출력한다.
         let itemList = "";
         printData.forEach((element) => {
           itemList += `
           <div class="TodoItem">
-            <input type="checkbox" onChange="onUpdate(${element.id})"" value=${element.isDone}/>
+            <input type="checkbox" onChange="onUpdate(${element.id})" ${element.isDone ? "checked" : ""}/>
             <div class="content">${element.content}</div>
             <div class="date">${new Date(element.date).toLocaleString()}</div>
             <button class="button" onclick="todoDel(this)">삭제</button>
@@ -115,7 +116,15 @@
           mockData.push(newData);
           initData(mockData);
         });
-      const onUpdate = (id) => {};
+      const onUpdate = (id) => {
+        /* mockData의 state의 값들 중에 targetId와 일치하는 todoitem의 isDone 변경
+          map함수를 이용한다. map함수의 결과를 mockData에 저장한다.
+        */
+        mockData = mockData.map((ele) =>
+          ele.id === id ? { ...ele, isDone: !ele.isDone } : ele,
+        );
+        initData(mockData);
+      };
       const todoDel = () => {};
     </script>
   </body>
