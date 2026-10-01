@@ -108,7 +108,7 @@
         .addEventListener("click", function () {
           event.preventDefault();
           const newData = {
-            id: idIndex,
+            id: idIndex++,
             isDone: false,
             content: document.querySelector(".Editor>input").value,
             date: new Date().getTime(),
