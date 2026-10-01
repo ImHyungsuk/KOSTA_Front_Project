@@ -93,7 +93,7 @@
             <input type="checkbox" onChange="onUpdate(${element.id})" ${element.isDone ? "checked" : ""}/>
             <div class="content">${element.content}</div>
             <div class="date">${new Date(element.date).toLocaleString()}</div>
-            <button class="button" onclick="todoDel(this)">삭제</button>
+            <button class="button" name="${element.id}" onclick="todoDel(this)">삭제</button>
           </div>
           `;
         });
@@ -128,7 +128,11 @@
         );
         initData(mockData);
       };
-      const todoDel = () => {};
+      const todoDel = (th) => {
+        //filter()함수를 이용해서 삭제하려는 대상이외의 todo만 추출해서 mockData에 담든다.
+        mockData = mockData.filter((e) => e.id !== parseInt(th.name));
+        initData(mockData); //호출한다.(다시 화면 랜더링)
+      };
     </script>
   </body>
 </html>
